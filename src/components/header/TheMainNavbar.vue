@@ -25,27 +25,27 @@
     <nav class="nav-container">
       <ol class="non-styled-list nav">
         <li class="nav-item login-nav-item">
-          <div v-if="!authService.current" class="user-container">
+          <div v-if="current" class="user-container">
             <input type="checkbox" id="login-input" class="login-input">
             <label for="login-input" class="nav-btn login-nav-btn">
-              Thonem
+              {{ current.nick }}
               <img src="@/assets/dropdown.svg" alt="dropdown" class="login-icon dropdown-icon">
               <img src="@/assets/dropup.svg" alt="dropdown" class="login-icon dropup-icon">
             </label>
             <ul class="non-styled-list user-menu">
-              <li class="nav-item"><router-link to="#" class="nav-btn">Profil</router-link></li>
-              <li class="nav-item"><router-link to="#" class="nav-btn">Gracze</router-link></li>
-              <li class="nav-item"><router-link to="#" class="nav-btn">Bany</router-link></li>
-              <li class="nav-item"><router-link to="#" class="nav-btn">Wiadomości</router-link></li>
-              <li class="nav-item"><router-link to="#" class="nav-btn">Wyloguj</router-link></li>
+              <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Profil</span></router-link></li>
+              <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Gracze</span></router-link></li>
+              <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Bany</span></router-link></li>
+              <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Wiadomości</span></router-link></li>
+              <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Wyloguj</span></router-link></li>
             </ul>
           </div>
           <router-link v-else to="/logowanie" class="nav-btn login-nav-btn">Zaloguj</router-link>
         </li>
-        <li class="nav-item shop-nav-item"><router-link to="#" class="nav-btn">Sklep</router-link></li>
-        <li class="nav-item contact-nav-item"><router-link to="#" class="nav-btn">Kontakt</router-link></li>
-        <li class="nav-item rules-nav-item"><router-link to="/regulamin" class="nav-btn">Regulamin</router-link></li>
-        <li class="nav-item help-nav-item"><router-link to="/pomoc" class="nav-btn">Pomoc</router-link></li>
+        <li class="nav-item shop-nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Sklep</span></router-link></li>
+        <li class="nav-item contact-nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Kontakt</span></router-link></li>
+        <li class="nav-item rules-nav-item"><router-link to="/regulamin" class="nav-btn"><span class="nav-text">Regulamin</span></router-link></li>
+        <li class="nav-item help-nav-item"><router-link to="/pomoc" class="nav-btn"><span class="nav-text">Pomoc</span></router-link></li>
       </ol>
     </nav>
   </div>
@@ -61,7 +61,7 @@ export default {
 
   setup() {
     return {
-      authService
+      current: authService.current
     }
   }
 }
@@ -105,7 +105,7 @@ export default {
 
 .media-icon {
   display: block;
-  height: 2rem;
+  height: 2.5rem;
   border-radius: 50%;
 }
 
@@ -307,7 +307,33 @@ export default {
     width: auto;
     font-size: 1rem;
     line-height: 1rem;
-    padding: 1.25rem 0;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .nav-text {
+    margin: auto;
+    display: block;
+    width: min-content;
+  }
+
+  .nav-text::after {
+    content: "";
+    background-color: #c04659;
+    height: 0.2rem;
+    margin-top: 0.2rem;
+    display: block;
+    transform: scaleX(0.0);
+    transition-duration: 0.3s;
+  }
+
+  .nav-btn:not(.login-nav-btn):hover, .nav-btn:not(.login-nav-btn):focus, .nav-btn:not(.login-nav-btn):active {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  .nav-btn:hover .nav-text::after, .nav-btn:focus .nav-text::after, .nav-btn:active .nav-text::after {
+    transform: scaleX(1.0);
   }
 
   .login-icon {
