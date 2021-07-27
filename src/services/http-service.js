@@ -26,7 +26,7 @@ export const httpService = {
   },
 
   request(path, method, body = null) {
-    return fetch('http://localhost:80/' + path, {
+    return fetch('http://localhost/api/' + path, {
       method: method,
       headers: {
         'Content-Type': 'application/json; charset=UTF-8'

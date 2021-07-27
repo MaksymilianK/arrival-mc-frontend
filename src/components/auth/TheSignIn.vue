@@ -1,24 +1,26 @@
 <template>
-  <h2 class="section-title">Logowanie</h2>
-  <form class="form" @submit="signIn" ref="form">
-    <BaseInput
-        type="text"
-        label="Nick"
-        placeholder="np. MiXdu"
-        v-model="nick"
-        :validator="validateNick"
-        error="Nieprawidłowy nick!"
-    ></BaseInput>
-    <BaseInput
-        type="password"
-        label="Hasło"
-        v-model="password"
-        :validator="validatePassword"
-        error="Nieprawidłowe hasło!"
-    ></BaseInput>
-    <BaseOutlinedButton type="submit">Zaloguj</BaseOutlinedButton>
-    <span v-if="error" class="error">{{ error }}</span>
-  </form>
+  <article>
+    <h2 class="section-title">Logowanie</h2>
+    <form class="form" @submit="signIn" ref="form">
+      <BaseInput
+          type="text"
+          label="Nick"
+          placeholder="np. MiXdu"
+          v-model="nick"
+          :validator="validateNick"
+          error="Nieprawidłowy nick!"
+      ></BaseInput>
+      <BaseInput
+          type="password"
+          label="Hasło"
+          v-model="password"
+          :validator="validatePassword"
+          error="Nieprawidłowe hasło!"
+      ></BaseInput>
+      <BaseOutlinedButton type="submit">Zaloguj</BaseOutlinedButton>
+      <span v-if="error" class="error">{{ error }}</span>
+    </form>
+  </article>
 </template>
 
 <script>

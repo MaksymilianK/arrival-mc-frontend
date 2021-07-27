@@ -70,3 +70,83 @@ a {
 .section-title::after {
     transform: translate(0.8rem, -0.6rem);
 }
+
+.mc-f-0 {
+    color: #000;
+}
+
+.mc-f-1 {
+    color: #00a;
+}
+
+.mc-f-2 {
+    color: #0a0;
+}
+
+.mc-f-3 {
+    color: #0aa;
+}
+
+.mc-f-4 {
+    color: #a00;
+}
+
+.mc-f-5 {
+    color: #a0a;
+}
+
+.mc-f-6 {
+    color: #fa0;
+}
+
+.mc-f-7 {
+    color: #aaa;
+}
+
+.mc-f-8 {
+    color: #555;
+}
+
+.mc-f-9 {
+    color: #55f;
+}
+
+.mc-f-a {
+    color: #5f5;
+}
+
+.mc-f-b {
+    color: #5ff;
+}
+
+.mc-f-c {
+    color: #f55;
+}
+
+.mc-f-d {
+    color: #f5f;
+}
+
+.mc-f-e {
+    color: #ff5;
+}
+
+.mc-f-f {
+    color: #fff;
+}
+
+.mc-f-l {
+    font-weight: bold;
+}
+
+.mc-f-m {
+    text-decoration: line-through;
+}
+
+.mc-f-n {
+    text-decoration: underline;
+}
+
+.mc-f-o {
+    font-style: italic;
+}

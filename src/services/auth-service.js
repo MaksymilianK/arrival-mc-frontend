@@ -76,7 +76,7 @@ export const authService = {
 
     this._sessionTimer = setTimeout(() => {
       this.sessionWarning.value = true;
-      this._sessionTimer = setTimeout(this._onSessionExpired, warningTime);
+      this._sessionTimer = setTimeout(() => this._onSessionExpired(), warningTime);
     }, sessionLifetime - warningTime);
   }
 }

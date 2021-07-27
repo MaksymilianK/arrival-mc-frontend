@@ -34,9 +34,7 @@
             </label>
             <ul class="non-styled-list user-menu">
               <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Profil</span></router-link></li>
-              <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Gracze</span></router-link></li>
-              <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Bany</span></router-link></li>
-              <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Wiadomości</span></router-link></li>
+              <li v-if="current.hasPerm('rank.view')" class="nav-item"><router-link to="/rangi" class="nav-btn"><span class="nav-text">Rangi</span></router-link></li>
               <li class="nav-item"><button @click="signOut" class="nav-btn"><span class="nav-text">Wyloguj</span></button></li>
             </ul>
           </div>

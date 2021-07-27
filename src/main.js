@@ -5,10 +5,12 @@ import {createRouter, createWebHistory} from "vue-router";
 import TheHome from "./components/home/TheHome";
 import {authService} from "./services/auth-service";
 import TheSignIn from "./components/auth/TheSignIn";
+import TheRankList from "./components/rank/TheRankList";
 
 const routes = [
   { path: '/', name: 'home', component: TheHome },
-  { path: '/logowanie', name: 'signIn', component: TheSignIn}
+  { path: '/logowanie', name: 'signIn', component: TheSignIn},
+  { path: '/rangi', name: 'ranks', component: TheRankList }
 ]
 
 const router = createRouter({
