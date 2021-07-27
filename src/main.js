@@ -4,9 +4,11 @@ import App from './App.vue'
 import {createRouter, createWebHistory} from "vue-router";
 import TheHome from "./components/home/TheHome";
 import {authService} from "./services/auth-service";
+import TheSignIn from "./components/auth/TheSignIn";
 
 const routes = [
   { path: '/', name: 'home', component: TheHome },
+  { path: '/logowanie', name: 'signIn', component: TheSignIn}
 ]
 
 const router = createRouter({

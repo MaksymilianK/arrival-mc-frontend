@@ -37,7 +37,7 @@
               <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Gracze</span></router-link></li>
               <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Bany</span></router-link></li>
               <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Wiadomości</span></router-link></li>
-              <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Wyloguj</span></router-link></li>
+              <li class="nav-item"><button @click="signOut" class="nav-btn"><span class="nav-text">Wyloguj</span></button></li>
             </ul>
           </div>
           <router-link v-else to="/logowanie" class="nav-btn login-nav-btn">Zaloguj</router-link>
@@ -61,9 +61,14 @@ export default {
 
   setup() {
     return {
-      current: authService.current
+      current: authService.current,
+      signOut
     }
   }
+}
+
+function signOut() {
+  authService.signOut();
 }
 </script>
 
@@ -202,7 +207,7 @@ export default {
 }
 
 .login-nav-btn:focus, .login-nav-btn:hover, .login-nav-btn:active {
-  background-color: #8e3341;
+  background-color: #7f2e38;
   color: #e2e2e2;
 }
 
@@ -213,7 +218,7 @@ export default {
 }
 
 .login-input:focus ~ .login-nav-btn {
-  background-color: #8e3341;
+  background-color: #7f2e38;
 }
 
 .login-icon {
@@ -380,7 +385,7 @@ export default {
 
   .user-menu .nav-btn {
     min-width: 10rem !important;
-    width: auto !important;
+    width: 100% !important;
   }
 }
 </style>

@@ -2,7 +2,7 @@ import {authService} from "./auth-service";
 
 export const httpService = {
   get(path, queryParams) {
-    return this.request(path + '?' + new URLSearchParams(queryParams), 'GET')
+    return this.request(path + '?' + new URLSearchParams(queryParams), 'GET', null)
   },
 
   post(path, body) {
@@ -25,15 +25,15 @@ export const httpService = {
     return this.request(path, 'OPTIONS');
   },
 
-  request(path, method, body = {}) {
-    return fetch('api/' + path, {
+  request(path, method, body = null) {
+    return fetch('http://localhost:80/' + path, {
       method: method,
       headers: {
         'Content-Type': 'application/json; charset=UTF-8'
       },
-      body: JSON.stringify(body)
-    }).then()
-      .then(onResponse);
+      credentials: 'include',
+      body: body && JSON.stringify(body)
+    }).then(onResponse);
   }
 }
 
@@ -41,7 +41,9 @@ export function onResponse(response) {
   authService.updateSession();
 
   if (response.ok) {
-    return response.json();
+    return new Promise((resolve, reject) => response.json()
+      .then(data => resolve({status: response.status, headers: response.headers, data}))
+      .catch(err => reject(err)));
   } else {
     return Promise.reject(response.status);
   }

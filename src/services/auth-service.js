@@ -13,18 +13,24 @@ export const authService = {
 
   signIn(nick, password) {
     return httpService.put('auth/current', {nick, password})
-      .then(data => {
-        this.current.value = new Current(data.nick, data.rank);
-        return data;
+      .then(res => {
+        console.log(res);
+        this.current.value = new Current(res.data.nick, res.data.rank);
+        return res;
       });
+  },
+
+  signOut() {
+    return httpService.delete('auth/current')
+      .then(() => this.current.value = null)
   },
 
   getCurrent() {
     if (this._session_cookie_exists()) {
       return httpService.get('auth/current')
-        .then(data => {
-          this.current.value = new Current(data.nick, data.rank);
-          return data;
+        .then(res => {
+          this.current.value = new Current(res.data.nick, res.data.rank);
+          return res;
         });
     } else {
       return Promise.reject(httpNotFound);

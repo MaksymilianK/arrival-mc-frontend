@@ -5,6 +5,7 @@
     <router-view></router-view>
     <aside v-if="sessionWarning" class="session-warning">
       Wkrótce zostaniesz wylogowany z powodu braku aktywności. Czy chcesz przedłużyć swoją sesję?
+      <br>
       <button @click="authService.turnOffSessionWarning">Nie</button>
       <button @click="authService.extendSession">Tak</button>
     </aside>
@@ -35,7 +36,14 @@ export default {
 
 <style scoped>
   .session-warning {
-    position: sticky;
+    padding: 1rem;
+    background-color: #222020;
+    box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.75);
+    position: fixed;
     bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50vw;
+    text-align: center;
   }
 </style>

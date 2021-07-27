@@ -1,7 +1,7 @@
 export class Current {
   constructor(nick, rank) {
     this.nick = nick;
-    this.rank = new CurrentRank(...rank);
+    this.rank = new CurrentRank(rank.id, rank.level, rank.name, rank.displayName, rank.chatFormat, rank.perms);
   }
 
   hasPerm(perm) {
