@@ -1,4 +1,5 @@
 import {authService} from "./auth-service";
+import {httpNoContent} from "../models/http-codes";
 
 export const httpService = {
   get(path, queryParams) {
@@ -32,7 +33,7 @@ export const httpService = {
         'Content-Type': 'application/json; charset=UTF-8'
       },
       credentials: 'include',
-      body: body && JSON.stringify(body)
+      body: body && JSON.stringify(body, replacer)
     }).then(onResponse);
   }
 }
@@ -41,10 +42,26 @@ export function onResponse(response) {
   authService.updateSession();
 
   if (response.ok) {
-    return new Promise((resolve, reject) => response.json()
-      .then(data => resolve({status: response.status, headers: response.headers, data}))
-      .catch(err => reject(err)));
+    if (response.status === httpNoContent) {
+      return {status: response.status, headers: response.headers, data: {}};
+    } else {
+      return new Promise((resolve, reject) => response.json()
+        .then(data => resolve({status: response.status, headers: response.headers, data}))
+        .catch(err => reject(err)));
+    }
   } else {
     return Promise.reject(response.status);
+  }
+}
+
+function replacer(key, value) {
+  if(value instanceof Map) {
+    return Object.fromEntries(value.entries());
+  } else if (value instanceof Set) {
+    return Array.from(value);
+  } else if (value === null) {
+    return undefined;
+  } else {
+    return value;
   }
 }

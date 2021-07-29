@@ -27,6 +27,9 @@
 
 <style scoped>
   .button {
+    white-space: nowrap;
+    width: min-content;
+    text-transform: uppercase;
     color: #e2e2e2;
     display: block;
     padding: 1rem 1.5rem;

@@ -1,12 +1,12 @@
 <template>
-  <span class="mc-f-7" v-html="formatRank(displayName)"></span>
+  <span class="mc-f-7" v-html="formatRank(display)"></span>
 </template>
 
 <script>
 export default {
-  name: "BaseFormattedRank",
+  name: "BaseFormatted",
   props: {
-    displayName: String
+    display: String
   },
 
   setup() {
@@ -22,7 +22,11 @@ const formatSymbol = '&';
 const resetCode = 'r';
 
 function formatRank(rank) {
-  return build(rank, false, false);
+  if (!rank) {
+    return ''
+  } else {
+    return build(rank, false, false);
+  }
 }
 
 function findFirstCode(text) {

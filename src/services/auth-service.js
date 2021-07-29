@@ -14,7 +14,6 @@ export const authService = {
   signIn(nick, password) {
     return httpService.put('auth/current', {nick, password})
       .then(res => {
-        console.log(res);
         this.current.value = new Current(res.data.nick, res.data.rank);
         return res;
       });

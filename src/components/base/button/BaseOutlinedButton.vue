@@ -21,6 +21,9 @@
 
 <style scoped>
   .outlined-button {
+    white-space: nowrap;
+    width: min-content;
+    text-transform: uppercase;
     padding: 1rem 1.5rem;
     border: 0.1rem solid #c04659;
     border-radius: 0.5rem;

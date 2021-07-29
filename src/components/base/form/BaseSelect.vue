@@ -2,28 +2,30 @@
   <div class="container">
     <label class="input-container">
       <span class="label">{{ label }}</span>
-      <input
+      <select
           v-bind="$attrs"
           ref="input"
           class="input no-focus-lost"
           :value="modelValue"
           @input="$emit('update:modelValue', $event.target.value)"
-          @focusin="clearError"
-          @focusout="validate"
       >
+        <option v-for="o in options" :key="o[0]" :value="o[0]">{{ o[1] }}</option>
+      </select>
     </label>
-    <span v-if="error" class="error-text">{{ error }}</span>
+    <span v-if="!input.checkValidity()" class="error-text">{{ error }}</span>
   </div>
 </template>
 
 <script>
-import {ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 
   export default {
-    name: 'BaseInput',
+    name: 'BaseSelect',
     props: {
       modelValue: {},
       label: String,
+      error: String,
+      options: Map,
       validator: {
         type: Function,
         default: () => true
@@ -31,31 +33,33 @@ import {ref} from "vue";
     },
 
     setup(props) {
-      return {
-        ...validationHelpers(props)
-      }
+      return validationHelpers(props)
     }
   }
 
 function validationHelpers(props) {
-  const input = ref(null);
-  const error = ref('');
+  const input = ref({checkValidity: () => true});
 
-  function clearError() {
-    error.value = '';
-    input.value.setCustomValidity(error.value);
+  function validate(current) {
+    if (current) {
+      if (props.validator()) {
+        input.value.setCustomValidity('');
+      } else {
+        input.value.setCustomValidity(props.error);
+      }
+    } else {
+      input.value.setCustomValidity('');
+    }
   }
 
-  function validate() {
-    error.value = props.validator();
-    input.value.setCustomValidity(error.value);
-  }
+  onMounted(validate);
+  watch(
+      () => props.modelValue,
+      validate
+  );
 
   return {
-    input,
-    validate,
-    clearError,
-    error
+    input
   }
 }
 </script>
