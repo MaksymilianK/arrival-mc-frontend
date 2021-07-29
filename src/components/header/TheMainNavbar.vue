@@ -33,7 +33,8 @@
               <img src="@/assets/dropup.svg" alt="dropdown" class="login-icon dropup-icon">
             </label>
             <ul class="non-styled-list user-menu">
-              <li class="nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Profil</span></router-link></li>
+              <li class="nav-item"><router-link :to="`/gracze/${current.nick}`" class="nav-btn"><span class="nav-text">Profil</span></router-link></li>
+              <li class="nav-item"><router-link to="/gracze" class="nav-btn"><span class="nav-text">Gracze</span></router-link></li>
               <li v-if="current.hasPerm('rank.view')" class="nav-item"><router-link to="/rangi/lista" class="nav-btn"><span class="nav-text">Rangi</span></router-link></li>
               <li class="nav-item"><button @click="signOut" class="nav-btn"><span class="nav-text">Wyloguj</span></button></li>
             </ul>
@@ -42,8 +43,8 @@
         </li>
         <li class="nav-item shop-nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Sklep</span></router-link></li>
         <li class="nav-item contact-nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Kontakt</span></router-link></li>
-        <li class="nav-item rules-nav-item"><router-link to="/regulamin" class="nav-btn"><span class="nav-text">Regulamin</span></router-link></li>
-        <li class="nav-item help-nav-item"><router-link to="/pomoc" class="nav-btn"><span class="nav-text">Pomoc</span></router-link></li>
+        <li class="nav-item rules-nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Regulamin</span></router-link></li>
+        <li class="nav-item help-nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Pomoc</span></router-link></li>
       </ol>
     </nav>
   </div>

@@ -11,6 +11,14 @@ export const authService = {
   sessionWarning: ref(false),
   current: ref(null),
 
+  hasPerm(perm) {
+    if (this.current) {
+      return this.current.value.hasPerm(perm);
+    } else {
+      return false;
+    }
+  },
+
   signIn(nick, password) {
     return httpService.put('auth/current', {nick, password})
       .then(res => {

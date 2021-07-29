@@ -8,13 +8,17 @@ import TheSignIn from "./components/auth/TheSignIn";
 import TheRankList from "./components/rank/TheRankList";
 import TheRankEdit from "./components/rank/TheRankEdit";
 import TheRankCreation from "./components/rank/TheRankCreation";
+import ThePlayerList from "./components/player/ThePlayerList";
+import ThePlayerProfile from "./components/player/ThePlayerProfile";
 
 const routes = [
   { path: '/', name: 'home', component: TheHome },
   { path: '/logowanie', name: 'signIn', component: TheSignIn},
   { path: '/rangi/lista', name: 'ranks', component: TheRankList },
   { path: '/rangi/lista/:id', name: 'rank-edit', component: TheRankEdit },
-  { path: '/rangi/nowa', name: 'rank-create', component: TheRankCreation }
+  { path: '/rangi/nowa', name: 'rank-create', component: TheRankCreation },
+  { path: '/gracze', name: 'players', component: ThePlayerList},
+  { path: '/gracze/:nick', name: 'profile', component: ThePlayerProfile}
 ]
 
 const router = createRouter({

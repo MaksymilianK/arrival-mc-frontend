@@ -47,6 +47,17 @@ a {
     padding: 0;
 }
 
+.non-styled-dictionary {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.non-styled-dictionary dt, .non-styled-dictionary dd {
+    margin: 0;
+    padding: 0;
+}
+
 .section-title {
     font-size: 2rem;
     text-transform: uppercase;

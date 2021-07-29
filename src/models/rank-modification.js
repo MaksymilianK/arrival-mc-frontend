@@ -9,8 +9,9 @@ export class RankModification {
 
     this.removedPerms = new Map();
     this.addedPerms = new Map();
+    console.log(...Object.values(rank));
 
-    rank = new RankFull(...Object.values(rank.perms));
+    rank = new RankFull(...Object.values(rank));
     for (let [server, serverPerms] of rank.perms.entries()) {
       for (let p of serverPerms) {
         if (!rankForm.perms.has(server)) {
@@ -31,6 +32,8 @@ export class RankModification {
           rank.perms.set(server, new Set());
         }
         if (!rank.perms.get(server).has(p)) {
+          console.log(rank.perms.get(server));
+          console.log(p);
           if (!this.addedPerms.has(server)) {
             this.addedPerms.set(server, new Set());
           }
