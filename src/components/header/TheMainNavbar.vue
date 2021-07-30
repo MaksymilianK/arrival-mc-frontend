@@ -16,32 +16,31 @@
       </a>
     </div>
 
-    <input type="checkbox" id="menu-input"  class="menu-input">
-    <label for="menu-input" class="menu-btn">
-      <img src="@/assets/menu-open.svg" alt="open menu" class="menu-icon open-menu-icon">
-      <img src="@/assets/menu-close.svg" alt="close menu" class="menu-icon close-menu-icon">
-    </label>
+    <nav class="nav-container" ref="mainNav">
+      <button class="menu-btn" @mousedown="onMainNavBtnClick">
+        <img src="@/assets/menu-open.svg" alt="open menu" class="menu-icon open-menu-icon">
+        <img src="@/assets/menu-close.svg" alt="close menu" class="menu-icon close-menu-icon">
+      </button>
 
-    <nav class="nav-container">
       <ol class="non-styled-list nav">
         <li class="nav-item login-nav-item">
-          <div v-if="current" class="user-container">
-            <input type="checkbox" id="login-input" class="login-input">
-            <label for="login-input" class="nav-btn login-nav-btn">
+          <div v-if="current" class="user-container" ref="userNav">
+            <button class="nav-btn login-nav-btn" @mousedown="onUserNavBtnClick">
               {{ current.nick }}
               <img src="@/assets/dropdown.svg" alt="dropdown" class="login-icon dropdown-icon">
               <img src="@/assets/dropup.svg" alt="dropdown" class="login-icon dropup-icon">
-            </label>
+            </button>
             <ul class="non-styled-list user-menu">
               <li class="nav-item"><router-link :to="`/gracze/${current.nick}`" class="nav-btn"><span class="nav-text">Profil</span></router-link></li>
               <li class="nav-item"><router-link to="/gracze" class="nav-btn"><span class="nav-text">Gracze</span></router-link></li>
               <li v-if="current.hasPerm('rank.view')" class="nav-item"><router-link to="/rangi/lista" class="nav-btn"><span class="nav-text">Rangi</span></router-link></li>
+              <li v-if="current.hasPerm('ban.view')" class="nav-item"><router-link to="/bany/lista" class="nav-btn"><span class="nav-text">Bany</span></router-link></li>
               <li class="nav-item"><button @click="signOut" class="nav-btn"><span class="nav-text">Wyloguj</span></button></li>
             </ul>
           </div>
           <router-link v-else to="/logowanie" class="nav-btn login-nav-btn">Zaloguj</router-link>
         </li>
-        <li class="nav-item shop-nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Sklep</span></router-link></li>
+        <li class="nav-item shop-nav-item"><router-link to="#" class="nav-btn" id="firstLink"><span class="nav-text">Sklep</span></router-link></li>
         <li class="nav-item contact-nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Kontakt</span></router-link></li>
         <li class="nav-item rules-nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Regulamin</span></router-link></li>
         <li class="nav-item help-nav-item"><router-link to="#" class="nav-btn"><span class="nav-text">Pomoc</span></router-link></li>
@@ -53,21 +52,40 @@
 <script>
 
 import {authService} from "../../services/auth-service";
+import {ref} from "vue";
 
 export default {
   name: "TheMainNavbar",
   components: {},
 
   setup() {
+    const mainNav = ref(null);
+    const userNav = ref(null);
+
+    function onMainNavBtnClick() {
+      if (mainNav.value.contains(document.activeElement)) {
+        document.activeElement.blur();
+      }
+    }
+
+    function onUserNavBtnClick() {
+      if (userNav.value.contains(document.activeElement)) {
+        if (window.matchMedia("(min-width: 1200px)").matches) {
+          setTimeout(() => document.activeElement.blur(), 50);
+        } else {
+          setTimeout(() => document.getElementById('firstLink').focus(), 50);
+        }
+      }
+    }
+
     return {
-      current: authService.current,
-      signOut
+      mainNav,
+      userNav,
+      onMainNavBtnClick,
+      onUserNavBtnClick,
+      current: authService.current
     }
   }
-}
-
-function signOut() {
-  authService.signOut();
 }
 </script>
 
@@ -135,45 +153,35 @@ function signOut() {
   height: 2rem;
 }
 
+.open-menu-icon {
+  display: block;
+}
+
 .close-menu-icon {
   display: none;
 }
 
-.nav-container {
+.nav {
   width: 100%;
   background-color: #222020;
   position: absolute;
-  display: none;
   top: 3.5rem;
-  z-index: -1;
+  left: 0;
+  z-index: 100;
+  display: none;
+  flex-flow: column;
   box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.75);
 }
 
-.nav {
-  margin-top: 0.7rem;
-  width: 100%;
+.nav-container:focus-within .nav {
   display: flex;
-  flex-flow: column;
 }
 
-.menu-input {
-  position: absolute;
-  left: -9999px;
-}
-
-.menu-input:focus ~ .menu-btn {
-  outline: #a7a6a6 dotted 1px;
-}
-
-.menu-input:checked ~ .nav-container {
-  display: block;
-}
-
-.menu-input:checked ~ .menu-btn .open-menu-icon {
+.nav-container:focus-within .open-menu-icon {
   display: none;
 }
 
-.menu-input:checked ~ .menu-btn .close-menu-icon {
+.nav-container:focus-within .close-menu-icon {
   display: block;
 }
 
@@ -183,11 +191,6 @@ function signOut() {
   width: 100%;
   text-align: center;
   line-height: inherit;
-}
-
-.nav-btn:hover, .nav-btn:focus, .nav-btn:active {
-  background-color: #a7a6a6;
-  color: #222020;
 }
 
 .nav-btn {
@@ -205,37 +208,59 @@ function signOut() {
   justify-content: center;
 }
 
-.login-nav-btn:focus, .login-nav-btn:hover, .login-nav-btn:active {
+.login-nav-btn:hover, .login-nav-btn:focus, .login-nav-btn:active {
   background-color: #7f2e38;
   color: #e2e2e2;
 }
 
-.login-input {
-  position: absolute;
-  opacity: 0.0;
-  left: -9999px;
+.user-container:focus-within .user-menu {
+  display: block;
 }
 
-.login-input:focus ~ .login-nav-btn {
-  background-color: #7f2e38;
+.nav-text {
+  margin: auto;
+  display: block;
+  width: min-content;
+}
+
+.nav-text::after {
+  content: "";
+  background-color: #c04659;
+  height: 0.2rem;
+  margin-top: 0.2rem;
+  display: block;
+  transform: scaleX(0.0);
+  transition-duration: 0.3s;
+}
+
+.nav-btn:hover .nav-text::after, .nav-btn:focus .nav-text::after, .nav-btn:active .nav-text::after {
+  transform: scaleX(1.0);
+}
+
+.dropdown-icon {
+  display: block;
+}
+
+.dropup-icon {
+  display: none;
+}
+
+.user-container:focus-within .dropdown-icon {
+  display: none;
+}
+
+.user-container:focus-within .dropup-icon {
+  display: block;
 }
 
 .login-icon {
-  display: block;
   margin-left: 0.4rem;
   height: 1rem;
 }
 
-.login-input:checked ~ .login-nav-btn .dropdown-icon {
-  display: none;
-}
-
-.login-input:not(:checked) ~ .login-nav-btn .dropup-icon {
-  display: none;
-}
-
 .user-menu {
   border-bottom: 1px dashed #4b4b4b;
+  display: none;
 }
 
 .login-input:not(:checked) ~ .user-menu {
@@ -243,10 +268,6 @@ function signOut() {
 }
 
 @media(min-width: 1200px) {
-  .menu-input {
-    display: none;
-  }
-
   .menu-btn {
     display: none;
   }
@@ -263,8 +284,7 @@ function signOut() {
   .nav-container {
     order: 1;
     top: 0;
-    display: block;
-    z-index: 1;
+    z-index: 100;
     width: auto;
     box-shadow: none;
     position: static;
@@ -272,6 +292,8 @@ function signOut() {
 
   .nav {
     position: absolute;
+    top: 0;
+    display: flex;
     width: auto;
     left: 50%;
     transform: translateX(-50%);
@@ -279,6 +301,7 @@ function signOut() {
     margin-top: 0;
     height: 100%;
     justify-content: center;
+    box-shadow: none;
   }
 
   .nav-item {
@@ -286,9 +309,7 @@ function signOut() {
   }
 
   .login-nav-item {
-    position: relative;
     order: 3;
-    top: -0.6rem;
   }
 
   .shop-nav-item {
@@ -315,31 +336,6 @@ function signOut() {
     padding-bottom: 1.25rem;
   }
 
-  .nav-text {
-    margin: auto;
-    display: block;
-    width: min-content;
-  }
-
-  .nav-text::after {
-    content: "";
-    background-color: #c04659;
-    height: 0.2rem;
-    margin-top: 0.2rem;
-    display: block;
-    transform: scaleX(0.0);
-    transition-duration: 0.3s;
-  }
-
-  .nav-btn:not(.login-nav-btn):hover, .nav-btn:not(.login-nav-btn):focus, .nav-btn:not(.login-nav-btn):active {
-    background-color: inherit;
-    color: inherit;
-  }
-
-  .nav-btn:hover .nav-text::after, .nav-btn:focus .nav-text::after, .nav-btn:active .nav-text::after {
-    transform: scaleX(1.0);
-  }
-
   .login-icon {
     height: 1.2rem;
   }
@@ -349,10 +345,12 @@ function signOut() {
   }
 
   .login-nav-btn {
+    top: -0.5rem;
+    position: relative;
     border-radius: 0.5rem;
     font-size: 1.2rem;
     line-height: 1.2rem;
-    height: 2.2rem;
+    height: 4.5rem;
     align-items: center;
     z-index: 50;
     padding-left: 2rem;
@@ -371,7 +369,6 @@ function signOut() {
     background-color: #222020;
     box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.75);
     border-bottom: none;
-    z-index: -1;
   }
 
   .user-menu .nav-item:first-child .nav-btn {

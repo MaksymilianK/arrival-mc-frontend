@@ -10,6 +10,8 @@ import TheRankEdit from "./components/rank/TheRankEdit";
 import TheRankCreation from "./components/rank/TheRankCreation";
 import ThePlayerList from "./components/player/ThePlayerList";
 import ThePlayerProfile from "./components/player/ThePlayerProfile";
+import TheBanList from "./components/ban/TheBanList";
+import TheBanCreation from "./components/ban/TheBanCreation";
 
 const routes = [
   { path: '/', name: 'home', component: TheHome },
@@ -18,7 +20,9 @@ const routes = [
   { path: '/rangi/lista/:id', name: 'rank-edit', component: TheRankEdit },
   { path: '/rangi/nowa', name: 'rank-create', component: TheRankCreation },
   { path: '/gracze', name: 'players', component: ThePlayerList},
-  { path: '/gracze/:nick', name: 'profile', component: ThePlayerProfile}
+  { path: '/gracze/:nick', name: 'profile', component: ThePlayerProfile},
+  { path: '/bany/lista', name: 'bans', component: TheBanList },
+  { path: '/bany/nowy', name: 'new-ban', component: TheBanCreation },
 ]
 
 const router = createRouter({

@@ -44,8 +44,7 @@
     cursor: inherit;
   }
 
-  .button:not(:disabled):hover {
-    outline: none;
+  .button:not(:disabled):hover, .button:not(:disabled):focus, .button:not(:disabled):active {
     background-color: #7f2e38;
     box-shadow: 0 0 5px 1px rgba(0,0,0,0.75);
   }

@@ -13,7 +13,7 @@
       </dl>
     </section>
     <section class="main-container">
-      <BaseButton v-if="authService.hasPerm('ban.give')" :to="`bany/nowy?nick=${player.nick}`">Zbanuj gracza</BaseButton>
+      <BaseButton v-if="authService.hasPerm('ban.give')" :to="`/bany/nowy?nick=${player.nick}`">Zbanuj gracza</BaseButton>
     </section>
   </article>
 </template>

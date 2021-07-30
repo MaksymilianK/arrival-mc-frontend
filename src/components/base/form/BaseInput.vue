@@ -88,6 +88,8 @@ function validationHelpers(props) {
     border: 0.1rem solid #a7a6a6;
     margin: 0.2rem 0 0 0;
     outline: none;
+    position: relative;
+    z-index: -1 !important;
   }
 
   .input:disabled {
