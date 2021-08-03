@@ -12,6 +12,7 @@ import ThePlayerList from "./components/player/ThePlayerList";
 import ThePlayerProfile from "./components/player/ThePlayerProfile";
 import TheBanList from "./components/ban/TheBanList";
 import TheBanCreation from "./components/ban/TheBanCreation";
+import TheBan from "./components/ban/TheBan";
 
 const routes = [
   { path: '/', name: 'home', component: TheHome },
@@ -23,11 +24,16 @@ const routes = [
   { path: '/gracze/:nick', name: 'profile', component: ThePlayerProfile},
   { path: '/bany/lista', name: 'bans', component: TheBanList },
   { path: '/bany/nowy', name: 'new-ban', component: TheBanCreation },
+  { path: '/bany/lista/:id', name: 'ban', component: TheBan }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes: routes
+});
+
+router.beforeEach(() => {
+  document.activeElement.blur();
 });
 
 authService.getCurrent()

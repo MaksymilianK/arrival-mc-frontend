@@ -53,6 +53,7 @@
 
 import {authService} from "../../services/auth-service";
 import {ref} from "vue";
+import {useRouter} from "vue-router";
 
 export default {
   name: "TheMainNavbar",
@@ -78,12 +79,20 @@ export default {
       }
     }
 
+    const router = useRouter();
+
+    function signOut() {
+      authService.signOut()
+          .then(() => router.push({name: 'home'}));
+    }
+
     return {
       mainNav,
       userNav,
       onMainNavBtnClick,
       onUserNavBtnClick,
-      current: authService.current
+      current: authService.current,
+      signOut
     }
   }
 }
@@ -127,7 +136,7 @@ export default {
 
 .media-icon {
   display: block;
-  height: 2.5rem;
+  height: 2.2rem;
   border-radius: 50%;
 }
 
@@ -135,11 +144,11 @@ export default {
   display: none;
 }
 
-.media-link:hover .media-icon-non-cl {
+.media-link:hover .media-icon-non-cl, .media-link:focus .media-icon-non-cl, .media-link:active .media-icon-non-cl {
   display: none;
 }
 
-.media-link:hover .media-icon-cl {
+.media-link:hover .media-icon-cl, .media-link:focus .media-icon-cl, .media-link:active .media-icon-cl {
   display: block;
 }
 
@@ -206,6 +215,7 @@ export default {
   cursor: pointer;
   display: flex;
   justify-content: center;
+  line-height: inherit;
 }
 
 .login-nav-btn:hover, .login-nav-btn:focus, .login-nav-btn:active {
@@ -353,9 +363,8 @@ export default {
     height: 4.5rem;
     align-items: center;
     z-index: 50;
-    padding-left: 2rem;
-    padding-right: 2rem;
     min-width: 6rem;
+    padding: 0 2rem;
   }
 
   .user-container {

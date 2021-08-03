@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="container">
     <ol class="non-styled-list pagination">
       <li v-if="firstShown" class="first-el">
         <BaseButton @click="go($emit, 0)">1</BaseButton>
@@ -99,5 +99,10 @@
     bottom: 0;
     display: inline;
     content: '...';
+  }
+
+  .container {
+    margin: 0 auto;
+    width: min-content;
   }
 </style>

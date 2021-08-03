@@ -1,7 +1,7 @@
 <template>
   <article class="section">
     <h2 class="section-title">Profil gracza</h2>
-    <section class="main-container">
+    <section class="container">
       <img v-if="player.nick" :src="`https://minotar.net/avatar/${player.nick}`" alt="" class="face-img">
       <dl class="non-styled-dictionary player-info">
         <dt class="player-info-name">Nick</dt>
@@ -12,7 +12,7 @@
           </dd>
       </dl>
     </section>
-    <section class="main-container">
+    <section class="container btn-container">
       <BaseButton v-if="authService.hasPerm('ban.give')" :to="`/bany/nowy?nick=${player.nick}`">Zbanuj gracza</BaseButton>
     </section>
   </article>
@@ -63,14 +63,17 @@ export default {
     display: flex;
     flex-flow: column;
     align-items: center;
-    gap: 5rem;
   }
 
-  .main-container {
+  .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5rem;
+  }
+
+  .btn-container {
+    margin-top: 5rem;
   }
 
   .face-img {
@@ -92,7 +95,7 @@ export default {
   }
 
   @media(min-width: 1200px) {
-    .main-container {
+    .container {
       flex-direction: row;
     }
   }

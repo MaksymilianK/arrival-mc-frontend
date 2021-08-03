@@ -21,6 +21,7 @@
 
 <style scoped>
   .outlined-button {
+    display: block;
     white-space: nowrap;
     width: min-content;
     text-transform: uppercase;

@@ -96,12 +96,13 @@ function helpers() {
       return;
     }
 
-    if (!newNick) {
+    if (newNick === undefined) {
       nick.value = '';
+    } else {
+      nick.value = newNick;
     }
 
     page.value = Number.parseInt(newPage);
-    nick.value = newNick;
 
     playerService.getPlayers(newNick, newPage, size)
         .then(res => {
@@ -152,7 +153,15 @@ const size = 20;
 
   .container {
     display: flex;
-    align-items: end;
+    flex-direction: column;
+    align-items: center;
     gap: 2rem;
   }
+
+@media(min-width: 1200px) {
+  .container {
+    flex-direction: row;
+    align-items: end;
+  }
+}
 </style>

@@ -26,5 +26,6 @@ export default {
   .header {
     position: sticky;
     top: -30vh;
+    z-index: 100;
   }
 </style>

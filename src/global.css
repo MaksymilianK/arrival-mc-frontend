@@ -74,6 +74,22 @@ a {
     text-align: center;
 }
 
+.old-type {
+    color: #bb3333;
+}
+
+.old-type.e {
+    color: #2e42cc;
+}
+
+.old-type.u {
+    color: #0d8000;
+}
+
+old-type.m {
+    color: #b26400;
+}
+
 @media(min-width: 1200px) {
     .section-title::before, .section-title::after {
         content: '';

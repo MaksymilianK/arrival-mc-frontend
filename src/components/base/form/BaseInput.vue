@@ -89,7 +89,7 @@ function validationHelpers(props) {
     margin: 0.2rem 0 0 0;
     outline: none;
     position: relative;
-    z-index: -1 !important;
+    z-index: 1 !important;
   }
 
   .input:disabled {
